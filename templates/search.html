@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Search</title>
+<style>
+body { background: #000; color: #fff; text-align: center; font-family: Arial; }
+input { padding: 10px; width: 300px; }
+button { padding: 10px 20px; margin: 10px; background: #007BFF; color: white; border: none; border-radius: 5px; }
+.job-card { background: #111; margin: 10px auto; padding: 15px; width: 60%; border-radius: 10px; box-shadow: 0 0 10px #007BFF; }
+</style>
+</head>
+<body>
+<h1>Search for Tech Jobs</h1>
+<form method="POST">
+  <input type="text" name="query" placeholder="Enter job title or location..." value="{{ query }}" required>
+  <button type="submit">Search</button>
+</form>
+<a href="{{ url_for('download') }}" style="color:#0ff;">Download CSV</a> |
+<a href="{{ url_for('logout') }}" style="color:#f55;">Logout</a>
+<hr>
+{% for job in results %}
+<div class="job-card">
+  <h2>{{ job["Job Title"] }}</h2>
+  <p>Company: {{ job["Company"] }}</p>
+  <p>Location: {{ job["Location"] }}</p>
+  <a href="{{ url_for('apply', job_title=job['Job Title']) }}"><button>Apply</button></a>
+</div>
+{% endfor %}
+</body>
+</html>
